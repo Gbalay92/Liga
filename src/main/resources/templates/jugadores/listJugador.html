@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Liga | Listado de Jugadores</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Cth:ustom @{/styles for this template -->
+    <link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <header>
+      <nav th:insert="fragments/menu :: menu-principal"></nav>
+    </header>  
+
+    <main role="main">    
+      <hr>
+      <div class="container"> 
+
+        <div class="card">
+          <h4 class="card-header"><strong>Listado de Jugadores</strong></h4>              
+          <div class="card-body">
+            <form th:action="@{/jugadores/create}" method="get">
+              <button class="btn btn-primary" title="Insertar jugador" type="submit"><i class="fas fa-file" aria-hidden="true"></i> Nuevo</button>          
+            </form>
+            <hr>
+            <h5 th:if="${msg != null}" class="alert alert-success" role="alert" th:text="${msg}"></h5>
+            <table class="table table-hover">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Equipo</th>
+                  <th scope="col">Nombre</th>                  
+                  <th scope="col">Fecha De Nacimiento</th>
+                  <th scope="col">Posicion</th>
+                  <th scope="col">Operaciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="jugador: ${jugadores}">
+                  <td th:text="${jugador.equipo.name}" ></td>
+                  <td th:text="${jugador.name}"></td>                  
+                  <td th:text="${jugador.dateOfBirth}"></td>
+                  <td th:text="${jugador.position}"></td>
+                  <td>
+                    <a th:href="@{/jugadores/edit/{id}  (id=${jugador.id})}" method="GET"  class="btn btn-success btn-sm" role="button" title="Editar el registro."><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
+                    <a th:href="@{/jugadores/delete/{id}  (id=${jugador.id})}" onclick="return confirm('¿Estas seguro?')" class="btn btn-danger btn-sm" role="button" title="Eliminar el registro."><i class="fas fa-trash" aria-hidden="true"></i></a>
+                  </td>
+                </tr>
+                
+              </tbody>
+            </table>
+            
+          </div>
+        </div>
+      </div> <!-- /container -->
+
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>
+          &copy; 2019 EmpleosApp, Inc. | WebApp Desarrollada con Spring Boot 2.1.2 | Autor: Alumnnos de daw <a href="#">Privacy</a>
+          &middot; <a href="#">Terms</a>
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>     
+  </body>
+</html>
