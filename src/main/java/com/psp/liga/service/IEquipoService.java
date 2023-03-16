@@ -11,4 +11,6 @@ public interface IEquipoService {
     Equipo findEquipoById(int id);
 
     void deleteEquipoById(int id);
+
+
 }
